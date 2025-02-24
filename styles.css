@@ -1,0 +1,151 @@
+body {
+  background-color:rgb(38, 38, 38)    ;
+  font-family: SBSansDisplay, OpenSans, Helvetica Neue, Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-direction: column; /* Направление колонки */
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Минимальная высота body равна высоте viewport */
+  margin: 0; /* Убираем отступы по умолчанию */
+}
+
+.result { 
+  width: 220px;
+  height: 70px;
+  margin-bottom: 5px;         /* отступ снизу  */
+  padding-right: 5px;         /* выступ справа */
+  background: rgb(247, 240, 240); /* цвет можно задавать и таким образом */
+  text-align: right;           /* примагнитим текст к правой стороне */
+  color: rgb(250, 250, 250);              
+  font-size: 1.5rem;
+  background-color: rgb(84, 98, 95); /* Задание заднего фона в красный цвет */
+  border-radius: 16px;
+  position: relative; /* добавляем относительное позиционирование */
+  left: 20px;  
+  display: flex;
+  flex-direction: column; /* Направление колонки */
+  justify-content: center;
+  align-items: left;
+}
+
+/* опишем базовый стиль кнопки калькулятора */
+.my-btn { 
+    margin-right: 5px;           /* задаем отступ от кнопки справа */
+    margin-top: 5px;             /* задаем отступ от кнопки сверху*/
+    width: 50px;                 /* задаем ширину кнопки */
+    height: 50px;                /* задаем высоту кнопки */
+    border-radius: 0%;          /* округляем кнопку */
+    border: none;                /* отключаем обводку */
+    background:  rgba(61,49,49,.9);       /* задаем серый цвет кнопки */
+    color: rgba(255, 255, 255);                /* задаем белый цвет текста внутри кнопки */
+    font-size: 1.5rem;           /* увеличим размер шрифта */
+    font-family: Arial, Helvetica, sans-serif; /* сменим шрифт */
+    cursor: pointer;             /* при наведении на кнопку курсор будет изменен
+                                    со стрелки на 'указательный палец' */
+    user-select: none;           /* отключаем возможность выделить текст внутри кнопки */
+  } 
+
+.theme-btn {
+  position: fixed; /* Фиксируем кнопку на экране */
+  top: 20px; /* Отступ сверху */
+  left: 20px; /* Отступ слева */
+  width: 40px; /* Ширина кнопки */
+  height: 40px; /* Высота кнопки */
+  border-radius: 50%; /* Делаем кнопку круглой */
+  border: none; /* Убираем обводку */
+  background-color: rgba(61, 49, 49, 0.9); /* Цвет фона */
+  color: rgba(255, 255, 255, 0.9); ; /* Цвет текста */
+  font-size: 1.2rem; /* Размер иконки */
+  cursor: pointer; /* Курсор в виде указателя */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none; /* Запрещаем выделение текста */
+}
+/* hover - это состояние элемента, когда на него наведен курсор */
+.my-btn:hover {
+  background: rgb(169, 169, 169)    ; /* при наведение курсора на кнопку, она будет окрашена в серый */
+}
+
+/* active - это состояние активации элемента. В случае кнопки - нажатие на нее */
+.my-btn:active {
+  filter: brightness(130%); /* увеличим интенсивность цвета для эффекта вспышки */
+}
+
+/* селектор для кнопок первостепенных операций */
+.my-btn.primary { 
+  background: rgb(13, 133, 35); /* цвет кнопки оранжевый */
+}
+
+/* селектор для кнопок второстепенных операций */
+.my-btn.secondary { 
+  background: rgb(0, 51, 153); /* цвет кнопки сервый */
+}
+  
+  /* селектор для кнопки расчета выражения (=) */
+.my-btn.execute { 
+  width: 110px;          /* сделаем кнопку шире других */
+  border-radius: 16px;   /* подкорректируем округлость */
+  box-sizing: border-box;
+  position: relative;
+}
+
+#number{
+    padding-left: 20px; 
+    font-weight: bold;
+    
+}
+
+.my-btn {
+    font-weight: 1000;
+    
+}
+.my-btn:hover {
+    background-color: rgb(190, 63, 37); /* Меняем цвет фона на зеленый при наведении */
+  }
+
+.theme-btn:hover {
+    background-color: darkgray; /* Цвет при наведении */
+}
+
+.background-image {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/GitHub_logo_2013.svg/330px-GitHub_logo_2013.svg.png');
+    background-size: contain;  /* Уменьшаем изображение */
+    background-position: center;
+    background-repeat: no-repeat;
+
+    text-indent: -9999px; /* Скрываем текст */
+    overflow: hidden;
+    padding: 5px; /* Делаем изображение меньше */
+}
+
+#btn_op_equal {
+  width: 110px; /* или любое другое значение */
+  border-radius: 16px;   /* РїРѕРґРєРѕСЂСЂРµРєС‚РёСЂСѓРµРј РѕРєСЂСѓРіР»РѕСЃС‚СЊ */
+  box-sizing: border-box;
+  position: relative;
+}
+
+.light-theme {
+  background-color: rgb(228,235,240);
+  
+}
+
+footer {
+  color:rgb(247, 240, 240);
+  margin-top: 50px
+}
+footer .thin-text {
+  font-weight: 300 !important; /* Используем допустимое значение */
+  margin: 0; /* Убираем отступы у заголовков */
+}
