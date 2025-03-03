@@ -52,14 +52,6 @@ export class MainPage {
                 text: "Сбербанк для вас",
                 class: "carousel-item active"
             },
-            /*
-            {
-                id: 2,
-                src: " https://www.sberbank.com/common/img/uploaded/mmb/smz-qr-s16092023//mobile.jpg",
-                text: "Покупка иностранной валюты",
-                class: "carousel-item"
-            },
-            */
             {
                 id: 3,
                 src: "https://sber.cdnvideo.ru/common/files/main_page/main_page_desktop/images/story-car-2110.webp",
@@ -85,7 +77,7 @@ export class MainPage {
 
     clickCard(e) {
         const cardId = e.target.closest('[data-id]').dataset.id;
-        if(cardId == "1") {  // Убедитесь, что id соответствует тому, что вы ожидаете
+        if(cardId == "1") { 
             const productPage = new ProductPage(this.parent, cardId);
             productPage.render();
         } else if(cardId == "3") {

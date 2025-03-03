@@ -69,9 +69,9 @@ export class ProductPageCar {
         backButton.render(this.clickBack.bind(this))
     
         const data = this.getData()
-        const productContainer = this.pageRoot.querySelector('.d-flex.flex-wrap') // Находим контейнер для продуктов
+        const productContainer = this.pageRoot.querySelector('.d-flex.flex-wrap') 
         data.forEach((item) => {
-            const stock = new ProductComponentCar(productContainer) // Передаем правильный контейнер
+            const stock = new ProductComponentCar(productContainer) 
             stock.render(item)
         })
     }

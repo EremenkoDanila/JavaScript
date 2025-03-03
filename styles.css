@@ -24,12 +24,12 @@
     height: 50%;
     display: center;
     align-items: flex-end;
-    gap: 20px; /* Отступ между карточками */
+    gap: 20px; 
 }
 
 .cart1 {
-    flex: 0 0 calc((100% - 40px) / 3); /* 40px = 2 промежутка по 20px */
-    box-sizing: border-box; /* Включаем отступы в расчет ширины */
+    flex: 0 0 calc((100% - 40px) / 3); 
+    box-sizing: border-box; 
     background-color: rgb(255, 255, 255);
     position: relative;
     display: flex;
@@ -39,7 +39,7 @@
     display: center;
 }
 
-/* Если ваш браузер не поддерживает gap для flex, можно использовать margin */
+
 .cart1:not(:last-child) {
     margin-right: 20px;
 }
@@ -81,10 +81,10 @@
     border-radius: 10%;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     
-    display: flex; /* Делаем flex-контейнер */
-    justify-content: center; /* Выравнивание по центру */
-    align-items: center; /* Выравнивание по вертикали */
-    gap: 20px; /* Отступ между элементами */
+    display: flex; 
+    justify-content: center;
+    align-items: center; 
+    gap: 20px; 
 }
 
 
@@ -113,7 +113,7 @@
 }
 
 #click-card-2 {
-    background-size: 50%;  /* Adjust the size of the background image */
+    background-size: 50%;  
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -122,23 +122,12 @@
 
 
 #back-button {
-    position: absolute; /* Абсолютное позиционирование */
-    top: 10px; /* Отступ сверху */
-    left: 10px; /* Отступ слева */
-    z-index: 1000; /* Убедитесь, что кнопка поверх других элементов */
+    position: absolute; 
+    top: 10px; 
+    left: 10px; 
+    z-index: 1000; 
     background-color: #148F2B;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -151,26 +140,26 @@
     width: 94%;
     height: 50%;
     display: flex;
-    justify-content: center; /* Центрирование по горизонтали */
-    align-items: flex-end; /* Выравнивание по нижнему краю */
-    gap: 40px; /* Увеличили расстояние между карточками */
+    justify-content: center;
+    align-items: flex-end; 
+    gap: 40px; 
 }
 
 .car1 {
-    flex: 0 0 calc((100% - 80px) / 3); /* 80px = 2 промежутка по 40px */
+    flex: 0 0 calc((100% - 80px) / 3); 
     box-sizing: border-box;
     background-color: rgb(255, 255, 255);
     position: relative;
     display: flex;
-    justify-content: center; /* Центрирование по горизонтали */
-    align-items: center; /* Центрирование по вертикали */
+    justify-content: center; 
+    align-items: center; 
     border-radius: 10%;
-    padding: 10px; /* Добавили отступы внутри карточки */
+    padding: 10px; 
 }
 
-/* Если ваш браузер не поддерживает gap для flex, можно использовать margin */
+
 .car1:not(:last-child) {
-    margin-right: 40px; /* Увеличили расстояние между карточками */
+    margin-right: 40px; 
 }
 
 .pic_car1 {
@@ -189,10 +178,10 @@
     margin: 0;
     font-size: 15px;
     font-weight: bold;
-    white-space: nowrap; /* Текст не переносится на новую строку */
-    overflow: hidden; /* Обрезаем текст, если он не помещается */
-    text-overflow: ellipsis; /* Добавляем многоточие, если текст обрезан */
-    max-width: 90%; /* Ограничиваем ширину текста */
+    white-space: nowrap;
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    max-width: 90%; 
 }
 
 .pic_car1 img {
@@ -204,7 +193,7 @@
 
 
 .carousel-item {
-    cursor: pointer; /* Курсор при наведении на слайд */
+    cursor: pointer; 
 }
 
 
