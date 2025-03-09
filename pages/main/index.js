@@ -18,10 +18,10 @@ export class MainPage {
         `).join('');
     }
         
-    getHTML() {
-        const data = this.getData();
+    async getHTML() {
+        const data = await this.getData(); // Ждем загрузки данных
         const indicatorsHTML = this.getIndicatorsHTML(data);
-
+    
         return `
             <div class="container mt-5">
                 <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
@@ -29,9 +29,9 @@ export class MainPage {
                     <div class="carousel-indicators">
                         ${indicatorsHTML}
                     </div>
-
+    
                     <div id="main-page" class="carousel-inner"></div>
-
+    
                     <!-- Кнопки навигации -->
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -44,31 +44,30 @@ export class MainPage {
         `;
     }
 
-    getData() {
-        return [
-            {
-                id: 1,
-                src: "https://www.sberbank.com/common/files/main_page/main_page_desktop/images/main010325desk.webp",
-                text: "Сбербанк для вас",
-                class_id: "carousel-item active"
-            },
-            {
-                id: 3,
-                src: "https://sber.cdnvideo.ru/common/files/main_page/main_page_desktop/images/story-car-2110.webp",
-                text: "СберАвто",
-                class_id: "carousel-item"
-            },
+    async getData() {
+        try {
+            const response = await fetch("../../db/MainPics.json");
 
-        ]
+            if (!response.ok) {
+                throw new Error(`Ошибка HTTP: ${response.status}`);
+            }
+
+            const data = await response.json(); // Декодируем JSON
+            console.log("Загруженные данные:", data, Array.isArray(data)); // Проверяем, массив ли это
+            return data;
+        } catch (error) {
+            console.error("Ошибка при получении данных:", error);
+            return [];
+        }
     }
 
     
-    render() {
+    async render() {
         this.parent.innerHTML = ''
-        const html = this.getHTML()
+        const html = await this.getHTML()
         this.parent.insertAdjacentHTML('afterbegin', html)
         
-        const data = this.getData()
+        const data = await this.getData()
         data.forEach((item) => {
             const productCard = new ProductCardComponent(this.pageRoot)
             productCard.render(item, this.clickCard.bind(this))
