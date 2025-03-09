@@ -9,39 +9,21 @@ export class ProductPage {
     }
 
 
-    getData() {
-        return [
-            {
-                id: 1,
-                src: "https://www.sberbank.ru//common/files/main_page/main_page_desktop/images/seg-all-ulibka-mob.png",
-                text: "Оформление кредитной карты"
-            },
-            {
-                id: 2,
-                src: "http://www.sberbank.ru/common/img/uploaded/_new_site/person/main_page_pilot/img/money-2x.png",
-                text: "Покупка иностранной валюты"
-            },
-            {
-                id: 3,
-                src: "http://www.sberbank.ru/common/img/uploaded/_new_site/person/main_page_pilot/img/prime-2x.png",
-                text: "Онлайн покупки"
-            },
-            {
-                id: 4,
-                src: "",
-                text: "Xxxxxxx"
-            },
-            {
-                id: 5,
-                src: "",
-                text: "Xxxxxxx"
-            },
-            {
-                id: 6,
-                src: "",
-                text: "Xxxxxxx"
-            },
-        ]
+    async getData() {
+        try {
+            const response = await fetch("../../db/SberServices.json");
+
+            if (!response.ok) {
+                throw new Error(`Ошибка HTTP: ${response.status}`);
+            }
+
+            const data = await response.json(); // Декодируем JSON
+            console.log("Загруженные данные:", data, Array.isArray(data)); // Проверяем, массив ли это
+            return data;
+        } catch (error) {
+            console.error("Ошибка при получении данных:", error);
+            return [];
+        }
     }
 
     get pageRoot() {
@@ -74,7 +56,7 @@ export class ProductPage {
     
 
     
-    render() {
+    async render() {
         this.parent.innerHTML = ''
         const html = this.getHTML()
         this.parent.insertAdjacentHTML('beforeend', html)
@@ -83,7 +65,7 @@ export class ProductPage {
         const backButton = new BackButtonComponent(backButtonContainer)
         backButton.render(this.clickBack.bind(this))
     
-        const data = this.getData()
+        const data = await this.getData()
         const productContainer = this.pageRoot.querySelector('.d-flex.flex-wrap') 
         data.forEach((item) => {
             const stock = new ProductComponent(productContainer) 
