@@ -50,13 +50,13 @@ export class MainPage {
                 id: 1,
                 src: "https://www.sberbank.com/common/files/main_page/main_page_desktop/images/main010325desk.webp",
                 text: "Сбербанк для вас",
-                class: "carousel-item active"
+                class_id: "carousel-item active"
             },
             {
                 id: 3,
                 src: "https://sber.cdnvideo.ru/common/files/main_page/main_page_desktop/images/story-car-2110.webp",
                 text: "СберАвто",
-                class: "carousel-item"
+                class_id: "carousel-item"
             },
 
         ]
