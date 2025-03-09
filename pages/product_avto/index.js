@@ -9,25 +9,24 @@ export class ProductPageCar {
     }
 
 
-    getData() {
-        return [
-            {
-                id: 1,
-                src: "https://sberauto.com/_next/image?url=https%3A%2F%2Fstrapi-multiaz.obs.ru-moscow-1.hc.sbercloud.ru%2Fcar_selection_2_desk_92ca397647.png&w=750&q=75",
-                text: "Автомабили от СберАвто"
-            },
-            {
-                id: 2,
-                src: "https://sberauto.com/_next/image?url=https%3A%2F%2Fstrapi-multiaz.obs.ru-moscow-1.hc.sbercloud.ru%2Fcar_selection_9_desk_78473eaefe.png&w=750&q=75",
-                text: "Автомабили со скидкой"
-            },
-            {
-                id: 3,
-                src: "https://sberauto.com/_next/image?url=https%3A%2F%2Fstrapi-multiaz.obs.ru-moscow-1.hc.sbercloud.ru%2Fcar_selection_7_desk_a943ec0680.png&w=750&q=75",
-                text: "Без пробега по РФ"
-            },
-        ]
+    async getData() {
+        try {
+            const response = await fetch("../../db/stocks.json");
+
+            if (!response.ok) {
+                throw new Error(`Ошибка HTTP: ${response.status}`);
+            }
+
+            const data = await response.json(); // Декодируем JSON
+            console.log("Загруженные данные:", data, Array.isArray(data)); // Проверяем, массив ли это
+            return data;
+        } catch (error) {
+            console.error("Ошибка при получении данных:", error);
+            return [];
+        }
     }
+    
+    
 
     get pageRoot() {
         return document.getElementById('product-page')
@@ -59,7 +58,8 @@ export class ProductPageCar {
     
 
     
-    render() {
+    async  render() {
+        
         this.parent.innerHTML = ''
         const html = this.getHTML()
         this.parent.insertAdjacentHTML('beforeend', html)
@@ -68,7 +68,7 @@ export class ProductPageCar {
         const backButton = new BackButtonComponent(backButtonContainer)
         backButton.render(this.clickBack.bind(this))
     
-        const data = this.getData()
+        const data = await  this.getData()
         const productContainer = this.pageRoot.querySelector('.d-flex.flex-wrap') 
         data.forEach((item) => {
             const stock = new ProductComponentCar(productContainer) 
