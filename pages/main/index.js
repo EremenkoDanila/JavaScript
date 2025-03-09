@@ -19,9 +19,9 @@ export class MainPage {
     }
         
     async getHTML() {
-        const data = await this.getData(); // Ждем загрузки данных
+        const data = await this.getData();
         const indicatorsHTML = this.getIndicatorsHTML(data);
-    
+
         return `
             <div class="container mt-5">
                 <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
@@ -29,9 +29,9 @@ export class MainPage {
                     <div class="carousel-indicators">
                         ${indicatorsHTML}
                     </div>
-    
+
                     <div id="main-page" class="carousel-inner"></div>
-    
+
                     <!-- Кнопки навигации -->
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
