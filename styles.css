@@ -1,6 +1,6 @@
 #main_pic {
     width: 1000px;
-    height: 454px;
+    height: 554px;
     background-color: rgb(242,245,247);
     position: relative;
     margin: 0 auto;
@@ -21,14 +21,19 @@
     bottom: 10%;
     left: 3%;
     width: 94%;
-    height: 50%;
-    display: center;
+    height: 100%;
+    display: flex;
     align-items: flex-end;
     gap: 20px; 
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.cart1:nth-child(n+4) { /* Для всех элементов, начиная с 4-го */
+    margin-top: 10px; /* Отступ сверху между рядами */
 }
 
 .cart1 {
-    flex: 0 0 calc((100% - 40px) / 3); 
+    flex: 0 0 calc((100% - 60px) / 3);
     box-sizing: border-box; 
     background-color: rgb(255, 255, 255);
     position: relative;

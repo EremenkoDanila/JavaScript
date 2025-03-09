@@ -26,6 +26,21 @@ export class ProductPage {
                 src: "http://www.sberbank.ru/common/img/uploaded/_new_site/person/main_page_pilot/img/prime-2x.png",
                 text: "Онлайн покупки"
             },
+            {
+                id: 4,
+                src: "",
+                text: "Xxxxxxx"
+            },
+            {
+                id: 5,
+                src: "",
+                text: "Xxxxxxx"
+            },
+            {
+                id: 6,
+                src: "",
+                text: "Xxxxxxx"
+            },
         ]
     }
 
