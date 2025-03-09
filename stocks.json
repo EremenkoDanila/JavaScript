@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "src": "https://sberauto.com/_next/image?url=https%3A%2F%2Fstrapi-multiaz.obs.ru-moscow-1.hc.sbercloud.ru%2Fcar_selection_2_desk_92ca397647.png&w=750&q=75",
+        "text": "Автомабили от СберАвто"
+    },
+    {
+        "id": 2,
+        "src": "https://sberauto.com/_next/image?url=https%3A%2F%2Fstrapi-multiaz.obs.ru-moscow-1.hc.sbercloud.ru%2Fcar_selection_9_desk_78473eaefe.png&w=750&q=75",
+        "text": "Автомабили со скидкой"
+    },
+    {
+        "id": 3,
+        "src": "https://sberauto.com/_next/image?url=https%3A%2F%2Fstrapi-multiaz.obs.ru-moscow-1.hc.sbercloud.ru%2Fcar_selection_7_desk_a943ec0680.png&w=750&q=75",
+        "text": "Без пробега по РФ"
+    }
+]
