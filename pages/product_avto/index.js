@@ -1,6 +1,7 @@
 import {ProductComponentCar} from "../../components/car/index.js";
 import {BackButtonComponent} from "../../components/back-button/index.js";
 import {MainPage} from "../main/index.js";
+import { ajax } from "../../XML/ajax.js";
 
 export class ProductPageCar {
     constructor(parent, id) {
@@ -9,21 +10,15 @@ export class ProductPageCar {
     }
 
 
-    async getData() {
-        try {
-            const response = await fetch("../../db/stocks.json");
-
-            if (!response.ok) {
-                throw new Error(`Ошибка HTTP: ${response.status}`);
+    getData(callback) {
+        ajax.get('stocks', (data) => {
+            if (data) {
+                console.log("Загруженные данные:", data);
+                callback(null, data);
+            } else {
+                callback("Ошибка загрузки данных", null);
             }
-
-            const data = await response.json(); // Декодируем JSON
-            console.log("Загруженные данные:", data, Array.isArray(data)); // Проверяем, массив ли это
-            return data;
-        } catch (error) {
-            console.error("Ошибка при получении данных:", error);
-            return [];
-        }
+        });
     }
     
     
@@ -68,11 +63,17 @@ export class ProductPageCar {
         const backButton = new BackButtonComponent(backButtonContainer)
         backButton.render(this.clickBack.bind(this))
     
-        const data = await  this.getData()
-        const productContainer = this.pageRoot.querySelector('.d-flex.flex-wrap') 
-        data.forEach((item) => {
-            const stock = new ProductComponentCar(productContainer) 
-            stock.render(item)
+        this.getData((error, data) => {
+            if (error) {
+                console.error(error);
+                return;
+            }
+
+            const productContainer = this.pageRoot.querySelector('.d-flex.flex-wrap') 
+            data.forEach((item) => {
+                const stock = new ProductComponentCar(productContainer);
+                stock.render(item);
+            });
         })
     }
 
