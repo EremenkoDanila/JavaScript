@@ -8,7 +8,9 @@ const app = express();
 
 const HOST = 'localhost';
 const PORT = 8000;
+const cors = require('cors');
 
+app.use(cors());
 app.use(express.json());
 app.use('/stocks', stocks);
 app.use('/sber_service', sber_service);

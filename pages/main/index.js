@@ -1,6 +1,8 @@
 import {ProductCardComponent} from "../../components/product-card/index.js";
 import {ProductPage} from "../product/index.js";
 import {ProductPageCar} from "../product_avto/index.js";
+import {ajax} from "../../XML/ajax.js";
+
 
 export class MainPage {
     constructor(parent) {
@@ -18,21 +20,15 @@ export class MainPage {
         `).join('');
     }
         
-    async getHTML() {
-        const data = await this.getData();
+    getHTML(data) {
         const indicatorsHTML = this.getIndicatorsHTML(data);
-
         return `
             <div class="container mt-5">
                 <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-                    <!-- Индикаторы -->
                     <div class="carousel-indicators">
                         ${indicatorsHTML}
                     </div>
-
                     <div id="main-page" class="carousel-inner"></div>
-
-                    <!-- Кнопки навигации -->
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     </button>
@@ -44,34 +40,35 @@ export class MainPage {
         `;
     }
 
-    async getData() {
-        try {
-            const response = await fetch("../../db/MainPics.json");
-
-            if (!response.ok) {
-                throw new Error(`Ошибка HTTP: ${response.status}`);
+    getData(callback) {
+        // Используем ajax.get вместо ajax.post
+        ajax.get('main_pics', (data) => {
+            if (data) {
+                console.log("Загруженные данные:", data);
+                callback(null, data);
+            } else {
+                callback("Ошибка загрузки данных", null);
             }
-
-            const data = await response.json(); // Декодируем JSON
-            console.log("Загруженные данные:", data, Array.isArray(data)); // Проверяем, массив ли это
-            return data;
-        } catch (error) {
-            console.error("Ошибка при получении данных:", error);
-            return [];
-        }
+        });
     }
 
     
-    async render() {
-        this.parent.innerHTML = ''
-        const html = await this.getHTML()
-        this.parent.insertAdjacentHTML('afterbegin', html)
-        
-        const data = await this.getData()
-        data.forEach((item) => {
-            const productCard = new ProductCardComponent(this.pageRoot)
-            productCard.render(item, this.clickCard.bind(this))
-        })
+    render() {
+        this.parent.innerHTML = '';
+        this.getData((error, data) => {
+            if (error) {
+                console.error(error);
+                return;
+            }
+
+            const html = this.getHTML(data);
+            this.parent.insertAdjacentHTML('afterbegin', html);
+            
+            data.forEach((item) => {
+                const productCard = new ProductCardComponent(this.pageRoot);
+                productCard.render(item, this.clickCard.bind(this));
+            });
+        });
     }
 
     clickCard(e) {
