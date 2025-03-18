@@ -16,6 +16,11 @@ class SberServicesService {
     static deleteSberService(id) {
         return SberServiceDAO.delete(id).map((SberService) => SberService.toJSON());
     }
+
+    static updateSberService(id, updates) {
+        return SberServiceDAO.update(id, updates).toJSON();
+    }
+    
 }
 
 module.exports = {

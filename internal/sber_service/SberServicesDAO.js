@@ -72,6 +72,27 @@ class SberServiceDAO {
             text: this.text,
         }
     }
+
+
+
+    static update(id, updates) {
+        this._validateId(id);
+        const SberServices = SberServicesRepository.read();
+        const index = SberServices.findIndex((s) => s.id === id);
+        if (index === -1) {
+            throw new Error('Service not found');
+        }
+        
+        // Обновление данных
+        const updatedService = { ...SberServices[index], ...updates };
+        SberServices[index] = updatedService;
+        SberServicesRepository.write(SberServices);
+    
+        return new this(updatedService.id, updatedService.src, updatedService.text);
+    }
+    
+
+
 }
 
 module.exports = {

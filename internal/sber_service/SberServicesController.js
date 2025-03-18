@@ -34,6 +34,19 @@ class SberServicesController {
             res.status(400).send({status: 'Bad Request', message: err.message})
         }
     }
+
+    static updateSberService(req, res) {
+        try {
+            const id = Number.parseInt(req.params.id);
+            const updates = req.body;
+            const updatedService = SberServicesService.updateSberService(id, updates);
+            res.send(updatedService);
+        } catch (err) {
+            res.status(400).send({status: 'Bad Request', message: err.message});
+        }
+    }
+    
+    
 }
 
 module.exports = {
