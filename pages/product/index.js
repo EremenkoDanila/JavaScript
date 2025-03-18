@@ -9,27 +9,23 @@ export class ProductPage {
         this.id = id
     }
 
-
-    async getData() {
-        try {
-            const response = await fetch("../../db/SberServices.json");
-
-            if (!response.ok) {
-                throw new Error(`Ошибка HTTP: ${response.status}`);
-            }
-
-            const data = await response.json(); // Декодируем JSON
-            console.log("Загруженные данные:", data, Array.isArray(data)); // Проверяем, массив ли это
-            return data;
-        } catch (error) {
-            console.error("Ошибка при получении данных:", error);
-            return [];
-        }
-    }
-
     get pageRoot() {
         return document.getElementById('product-page')
     }
+
+
+    getData(callback) {
+        ajax.get('sber_service', (data) => {
+            if (data) {
+                console.log("Загруженные данные:", data);
+                callback(null, data);
+            } else {
+                callback("Ошибка загрузки данных", null);
+            }
+        });
+    }
+
+
 
             
     getHTML() {
@@ -57,7 +53,7 @@ export class ProductPage {
     
 
     
-    async render() {
+    render() {
         this.parent.innerHTML = ''
         const html = this.getHTML()
         this.parent.insertAdjacentHTML('beforeend', html)
@@ -66,13 +62,17 @@ export class ProductPage {
         const backButton = new BackButtonComponent(backButtonContainer)
         backButton.render(this.clickBack.bind(this))
     
-        const data = await this.getData()
-        const productContainer = this.pageRoot.querySelector('.d-flex.flex-wrap') 
-        data.forEach((item) => {
-            const stock = new ProductComponent(productContainer) 
-            stock.render(item)
+        this.getData((error, data) => 
+        {
+            if (error) {
+                console.error(error);
+                return;
+            }
+            const productContainer = this.pageRoot.querySelector('.d-flex.flex-wrap');  
+            data.forEach((item) => {
+                const stock = new ProductComponent(productContainer) 
+                stock.render(item)
+            })
         })
     }
-
-
 }
