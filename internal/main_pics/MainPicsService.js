@@ -16,6 +16,13 @@ class MainPicsService {
     static deleteMainPic(id) {
         return MainPicDAO.delete(id).map((MainPic) => MainPic.toJSON());
     }
+
+
+
+    static updateMainPic(id, updates) {
+        return MainPicDAO.update(id, updates).toJSON();
+    }
+
 }
 
 module.exports = {

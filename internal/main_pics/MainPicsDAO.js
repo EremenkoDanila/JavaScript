@@ -67,6 +67,26 @@ class MainPicDAO {
         });
     }
 
+
+    static update(id, updates) {
+        this._validateId(id);
+        const MainPics = MainPicsRepository.read();
+        const index = MainPics.findIndex((s) => s.id === id);
+        if (index === -1) {
+            throw new Error('Service not found');
+        }
+        
+        // Обновление данных
+        const updatedService = { ...MainPics[index], ...updates };
+        MainPics[index] = updatedService;
+        MainPicsRepository.write(MainPics);
+    
+        return new this(updatedService.id, updatedService.src, updatedService.text);
+    }
+
+
+
+
     toJSON() {
         return {
             id: this.id,

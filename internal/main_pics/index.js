@@ -7,5 +7,5 @@ router.get('/', MainPicsController.findMainPics);
 router.get('/:id', MainPicsController.findMainPicById);
 router.post('/', MainPicsController.addMainPic);
 router.delete('/:id', MainPicsController.deleteMainPic);
-
+router.patch('/:id', MainPicsController.updateMainPic);
 module.exports = router;

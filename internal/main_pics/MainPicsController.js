@@ -34,6 +34,18 @@ class MainPicsController {
             res.status(400).send({status: 'Bad Request', message: err.message})
         }
     }
+
+
+    static updateMainPic(req, res) {
+        try {
+            const id = Number.parseInt(req.params.id);
+            const updates = req.body;
+            const updatedMainPic = MainPicsService.updateMainPic(id, updates);
+            res.send(updatedMainPic);
+        } catch (err) {
+            res.status(400).send({status: 'Bad Request', message: err.message});
+        }
+    }
 }
 
 module.exports = {
