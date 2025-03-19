@@ -65,6 +65,25 @@ class StockDAO {
         });
     }
 
+
+    static update(id, updates) {
+        this._validateId(id);
+        const Stocks = StocksRepository.read();
+        const index = Stocks.findIndex((s) => s.id === id);
+        if (index === -1) {
+            throw new Error('Service not found');
+        }
+        
+        // Обновление данных
+        const updatedService = { ...Stocks[index], ...updates };
+        Stocks[index] = updatedService;
+        StocksRepository.write(Stocks);
+    
+        return new this(updatedService.id, updatedService.src, updatedService.text);
+    }
+
+    
+
     toJSON() {
         return {
             id: this.id,
@@ -72,6 +91,8 @@ class StockDAO {
             text: this.text,
         }
     }
+
+    
 }
 
 module.exports = {

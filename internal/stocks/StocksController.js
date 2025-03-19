@@ -34,6 +34,20 @@ class StocksController {
             res.status(400).send({status: 'Bad Request', message: err.message})
         }
     }
+
+
+    static updateStock(req, res) {
+        try {
+            const id = Number.parseInt(req.params.id);
+            const updates = req.body;
+            const updatedService = StocksService.updateStocks(id, updates);
+            res.send(updatedService);
+        } catch (err) {
+            res.status(400).send({status: 'Bad Request', message: err.message});
+        }
+    }
+
+
 }
 
 module.exports = {
