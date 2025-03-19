@@ -1,25 +1,18 @@
 import { url_all } from "./urls.js";
-
 class Ajax {
-    get(url, callback) {
-        let xhr = new XMLHttpRequest();
-        xhr.open('GET', url_all.getAllInfo(url), true);  // Изменяем на GET-запрос
-        xhr.send();
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === 4) {
-                // Проверка на успешный ответ (статус 200)
-                if (xhr.status === 200) {
-                    try {
-                        const data = JSON.parse(xhr.responseText); // Используем responseText для GET-запросов
-                        callback(data);
-                    } catch (error) {
-                        console.error("Ошибка при разборе JSON:", error);
-                    }
-                } else {
-                    console.error("Ошибка с запросом:", xhr.status, xhr.statusText);
-                }
+    // Асинхронный метод для GET-запроса
+    async get(url) {
+        try {
+            const response = await fetch(url_all.getAllInfo(url)); // Отправляем запрос
+            if (!response.ok) {
+                throw new Error(`Ошибка с запросом: ${response.status} ${response.statusText}`);
             }
-        };
+            const data = await response.json(); // Преобразуем ответ в JSON
+            return data; // Возвращаем данные
+        } catch (error) {
+            console.error("Ошибка запроса:", error); // Логируем ошибку
+            throw error; // Генерируем ошибку, чтобы с ней можно было работать дальше
+        }
     }
 }
 

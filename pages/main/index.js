@@ -40,36 +40,34 @@ export class MainPage {
         `;
     }
 
-    getData(callback) {
-        // Используем ajax.get вместо ajax.post
-        ajax.get('main_pics', (data) => {
-            if (data) {
-                console.log("Загруженные данные:", data);
-                callback(null, data);
-            } else {
-                callback("Ошибка загрузки данных", null);
-            }
-        });
+    async getData() {
+        try {
+            const data = await ajax.get('main_pics'); 
+            console.log("Загруженные данные:", data);
+            return data;
+        } catch (error) {
+            console.error("Ошибка при получении данных:", error);
+            return null; 
+        }
     }
+
 
     
-    render() {
-        this.parent.innerHTML = '';
-        this.getData((error, data) => {
-            if (error) {
-                console.error(error);
-                return;
-            }
+    async render() {
+        this.parent.innerHTML = ''; 
+        const data = await this.getData(); 
+        if (!data) return; 
 
-            const html = this.getHTML(data);
-            this.parent.insertAdjacentHTML('afterbegin', html);
-            
-            data.forEach((item) => {
-                const productCard = new ProductCardComponent(this.pageRoot);
-                productCard.render(item, this.clickCard.bind(this));
-            });
+        const html = this.getHTML(data); 
+        this.parent.insertAdjacentHTML('afterbegin', html); 
+        
+        
+        data.forEach((item) => {
+            const productCard = new ProductCardComponent(this.pageRoot);
+            productCard.render(item, this.clickCard.bind(this));
         });
     }
+
 
     clickCard(e) {
         const cardId = e.target.closest('[data-id]').dataset.id;

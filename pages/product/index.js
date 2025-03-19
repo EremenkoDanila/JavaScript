@@ -14,18 +14,17 @@ export class ProductPage {
     }
 
 
-    getData(callback) {
-        ajax.get('sber_service', (data) => {
-            if (data) {
-                console.log("Загруженные данные:", data);
-                callback(null, data);
-            } else {
-                callback("Ошибка загрузки данных", null);
-            }
-        });
+
+    async getData() {
+        try {
+            const data = await ajax.get('sber_service'); 
+            console.log("Загруженные данные:", data);
+            return data;
+        } catch (error) {
+            console.error("Ошибка при получении данных:", error);
+            return null; 
+        }
     }
-
-
 
             
     getHTML() {
@@ -52,27 +51,24 @@ export class ProductPage {
     }
     
 
+    async render() {
+        this.parent.innerHTML = ''; 
+        const html = this.getHTML(); 
+        this.parent.insertAdjacentHTML('beforeend', html); 
     
-    render() {
-        this.parent.innerHTML = ''
-        const html = this.getHTML()
-        this.parent.insertAdjacentHTML('beforeend', html)
+        const backButtonContainer = document.getElementById('back-button-container');
+        const backButton = new BackButtonComponent(backButtonContainer);
+        backButton.render(this.clickBack.bind(this));  
     
-        const backButtonContainer = document.getElementById('back-button-container')
-        const backButton = new BackButtonComponent(backButtonContainer)
-        backButton.render(this.clickBack.bind(this))
-    
-        this.getData((error, data) => 
-        {
-            if (error) {
-                console.error(error);
-                return;
-            }
-            const productContainer = this.pageRoot.querySelector('.d-flex.flex-wrap');  
-            data.forEach((item) => {
-                const stock = new ProductComponent(productContainer) 
-                stock.render(item)
-            })
-        })
-    }
+        const data = await this.getData();  
+
+        if (!data) return; 
+
+        const productContainer = this.pageRoot.querySelector('.d-flex.flex-wrap');
+        data.forEach((item) => {
+            const stock = new ProductComponent(productContainer);
+            stock.render(item);  
+        });
+    }    
+
 }
